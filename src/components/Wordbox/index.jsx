@@ -3,6 +3,7 @@ import "./style.css";
 
 const Wordbox = ({ word, onFinish }) => {
   const [lettersLeft, setLettersLeft] = useState(word);
+  const [mistake, setMistake] = useState(false)
 
 
   const handleKeyUp = (e) => {
@@ -12,6 +13,9 @@ const Wordbox = ({ word, onFinish }) => {
       onFinish();
     } else if (e.key.toLowerCase() === lettersLeft.substring(0, 1).toLowerCase()) {
       setLettersLeft(lettersLeft.substring(1));
+      setMistake(false)
+    } else {
+      setMistake(true)
     }
   };
 
@@ -20,7 +24,7 @@ const Wordbox = ({ word, onFinish }) => {
     return () => document.removeEventListener("keyup", handleKeyUp);
   }, [lettersLeft]);
 
-  return <div className="wordbox">{lettersLeft}</div>;
+  return <div className={mistake ? "wordbox wordbox--mistake": "wordbox"}>{lettersLeft}</div>;
 };
 
 export default Wordbox;
