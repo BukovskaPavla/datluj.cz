@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./style.css";
 
-const Wordbox = ({ word, onFinish }) => {
+const Wordbox = ({ word, onFinish , active }) => {
   const [lettersLeft, setLettersLeft] = useState(word);
   const [mistake, setMistake] = useState(false)
 
@@ -20,9 +20,9 @@ const Wordbox = ({ word, onFinish }) => {
   };
 
   useEffect(() => {
-    document.addEventListener("keyup", handleKeyUp);
+    active ? document.addEventListener("keyup", handleKeyUp): null
     return () => document.removeEventListener("keyup", handleKeyUp);
-  }, [lettersLeft]);
+  }, [lettersLeft, active]);
 
   return <div className={mistake ? "wordbox wordbox--mistake": "wordbox"}>{lettersLeft}</div>;
 };
